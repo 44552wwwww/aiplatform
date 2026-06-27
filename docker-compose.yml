@@ -2,17 +2,21 @@ version: "3.9"
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
     env_file:
       - .env
     environment:
-      # Override for Docker: use PostgreSQL (hostname = service name "db")
+      # Docker: use PostgreSQL (hostname = service name "db")
+      # Railway: auto-injected DATABASE_URL overrides this
       - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-insightforge}
       - DEBUG=${DEBUG:-false}
     volumes:
-      # Mount skills/ so backend container can discover Skill plugins
+      # Local dev: mount skills/ for hot-reload (optional)
+      # Railway: skills/ is baked into the image via Dockerfile
       - ./skills:/app/skills
     depends_on:
       db:
