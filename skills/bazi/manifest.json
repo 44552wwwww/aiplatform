@@ -1,0 +1,56 @@
+{
+  "id": "bazi",
+  "display_name": "命运双鉴",
+  "version": "1.0.0",
+  "author": "InsightForge-AI",
+  "description": "八字命理与紫微斗数双重分析，生成个性化命运报告",
+  "icon": "compass",
+  "category": "lifestyle",
+  "entry": "workflow.py",
+  "output": "html",
+  "parameters": {
+    "year": {
+      "type": "number",
+      "label": "出生年份",
+      "required": true,
+      "min": 1900,
+      "max": 2100,
+      "placeholder": "请输入出生年份",
+      "default": 1990
+    },
+    "month": {
+      "type": "number",
+      "label": "出生月份",
+      "required": true,
+      "min": 1,
+      "max": 12,
+      "placeholder": "1-12",
+      "default": 1
+    },
+    "day": {
+      "type": "number",
+      "label": "出生日期",
+      "required": true,
+      "min": 1,
+      "max": 31,
+      "placeholder": "1-31",
+      "default": 1
+    },
+    "hour": {
+      "type": "number",
+      "label": "出生时辰（0-23）",
+      "required": true,
+      "min": 0,
+      "max": 23,
+      "placeholder": "0-23",
+      "default": 12
+    },
+    "gender": {
+      "type": "select",
+      "label": "性别",
+      "required": true,
+      "options": ["男", "女"],
+      "default": "男"
+    }
+  }
+}

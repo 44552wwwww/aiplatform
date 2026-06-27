@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Override for Docker: use PostgreSQL (hostname = service name "db")
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-insightforge}
+      - DEBUG=${DEBUG:-false}
+    volumes:
+      # Mount skills/ so backend container can discover Skill plugins
+      - ./skills:/app/skills
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - insightforge
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=${VITE_API_URL:-}
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - insightforge
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-insightforge}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-insightforge}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - insightforge
+
+volumes:
+  pgdata:
+
+networks:
+  insightforge:
+    driver: bridge

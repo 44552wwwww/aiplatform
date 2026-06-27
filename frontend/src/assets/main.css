@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  background: #f5f7fa;
+  color: #303133;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+}
