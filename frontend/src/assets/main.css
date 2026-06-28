@@ -638,6 +638,10 @@ input, select, textarea {
   transform: rotate(180deg);
 }
 
+.faq-item.active .faq-answer {
+  max-height: 1000px;
+}
+
 .faq-answer {
   max-height: 0;
   overflow: hidden;
