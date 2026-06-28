@@ -1,56 +1,46 @@
 <template>
   <AuthLayout>
-    <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-sm">
-      <div class="mb-8 text-center">
-        <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-900/40">
-          <Sparkles class="h-6 w-6 text-purple-600 dark:text-purple-400" />
-        </div>
-        <h1 class="text-2xl font-bold tracking-tight">欢迎回来</h1>
-        <p class="mt-2 text-sm text-[var(--color-muted-foreground)]">登录你的 InsightForge 账号</p>
+    <div class="auth-header">
+      <div class="auth-logo">✨</div>
+      <h1 class="auth-title">欢迎回来</h1>
+      <p class="auth-subtitle">登录你的 InsightForge 账号</p>
+    </div>
+    <form class="auth-form" @submit.prevent="handleLogin">
+      <div class="form-group">
+        <label class="form-label">用户名</label>
+        <input
+          ref="usernameRef"
+          v-model="form.username"
+          type="text"
+          class="form-input"
+          placeholder="请输入用户名"
+          autocomplete="username"
+        />
       </div>
-
-      <form class="space-y-5" @submit.prevent="handleLogin">
-        <div>
-          <label class="mb-2 block text-sm font-medium">用户名</label>
+      <div class="form-group">
+        <label class="form-label">密码</label>
+        <div class="password-input-wrapper">
           <input
-            ref="usernameRef"
-            v-model="form.username"
-            type="text"
-            placeholder="请输入用户名"
-            autocomplete="username"
-            class="h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm placeholder:text-[var(--color-muted-foreground)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] focus:ring-offset-1"
+            v-model="form.password"
+            :type="showPassword ? 'text' : 'password'"
+            class="form-input"
+            placeholder="请输入密码"
+            autocomplete="current-password"
+            @keyup.enter="handleLogin"
           />
+          <button type="button" class="password-toggle" @click="showPassword = !showPassword">
+            {{ showPassword ? '🙈' : '👁️' }}
+          </button>
         </div>
-
-        <div>
-          <label class="mb-2 block text-sm font-medium">密码</label>
-          <div class="relative">
-            <input
-              v-model="form.password"
-              :type="showPassword ? 'text' : 'password'"
-              placeholder="请输入密码"
-              autocomplete="current-password"
-              class="h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] px-4 pr-10 text-sm placeholder:text-[var(--color-muted-foreground)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] focus:ring-offset-1"
-              @keyup.enter="handleLogin"
-            />
-            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]" @click="showPassword = !showPassword">
-              <EyeOff v-if="showPassword" class="h-4 w-4" />
-              <Eye v-else class="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-
-        <div v-if="error" class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">{{ error }}</div>
-
-        <Button type="submit" class="w-full" :disabled="loading">
-          <Loader2 v-if="loading" class="h-4 w-4 animate-spin" />
-          {{ loading ? '登录中...' : '登录' }}
-        </Button>
-      </form>
-
-      <p class="mt-6 text-center text-sm text-[var(--color-muted-foreground)]">
-        还没有账号？<router-link to="/register" class="font-medium text-purple-600 transition-colors hover:text-purple-700 dark:text-purple-400">立即注册</router-link>
-      </p>
+      </div>
+      <div v-if="error" class="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300 mb-4">{{ error }}</div>
+      <button type="submit" class="btn btn-primary btn-lg btn-full" :class="{ 'btn-loading': loading }" :disabled="loading">
+        <span v-if="loading" class="loading-spinner" />
+        {{ loading ? '登录中...' : '登录' }}
+      </button>
+    </form>
+    <div class="auth-footer">
+      还没有账号？<router-link to="/register">立即注册</router-link>
     </div>
   </AuthLayout>
 </template>
@@ -58,9 +48,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { Sparkles, Eye, EyeOff, Loader2 } from 'lucide-vue-next'
 import AuthLayout from '@/layouts/AuthLayout.vue'
-import Button from '@/components/ui/Button.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()

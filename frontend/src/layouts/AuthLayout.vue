@@ -1,17 +1,14 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-[var(--color-muted)]/30 px-4 py-12">
-    <div class="w-full max-w-md">
-      <div class="mb-8 text-center">
-        <router-link to="/" class="inline-flex items-center gap-2 text-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
-          <ArrowLeft class="h-4 w-4" />
-          返回首页
-        </router-link>
-      </div>
+  <div class="auth-page">
+    <div class="auth-card glass-card">
+      <router-link to="/" class="auth-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+        返回首页
+      </router-link>
       <slot />
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ArrowLeft } from 'lucide-vue-next'
-</script>

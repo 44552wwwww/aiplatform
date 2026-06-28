@@ -1,78 +1,104 @@
 <template>
   <AppLayout>
-    <div class="mb-10">
-      <h1 class="text-2xl font-bold tracking-tight">Welcome, {{ username }}</h1>
-      <p class="mt-2 text-sm text-[var(--color-muted-foreground)]">{{ greeting }}</p>
+    <!-- 欢迎信息 -->
+    <div class="page-header">
+      <h1 class="page-title">Welcome, {{ username }} 👋</h1>
+      <p class="page-desc">{{ greeting }}</p>
     </div>
 
-    <StateWrapper :loading="loading" :error="error" :empty="false" :retry="fetchData">
-      <!-- Stats -->
-      <div class="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div v-for="stat in stats" :key="stat.label"
-          class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 shadow-sm transition-shadow hover:shadow-md">
-          <div class="flex items-center gap-4">
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl" :class="stat.bg">
-              <component :is="stat.icon" class="h-5 w-5" :class="stat.color" />
-            </div>
-            <div>
-              <div class="text-2xl font-bold">{{ stat.value }}</div>
-              <div class="text-xs text-[var(--color-muted-foreground)]">{{ stat.label }}</div>
-            </div>
+    <!-- 加载状态 -->
+    <template v-if="loading && !error">
+      <div class="stats-row">
+        <div v-for="i in 4" :key="i" class="stat-card glass-card"><div class="loading-spinner" /></div>
+      </div>
+    </template>
+
+    <!-- 错误状态 -->
+    <div v-else-if="error" class="empty-state">
+      <div class="empty-state-icon">⚠️</div>
+      <div class="empty-state-title">加载失败</div>
+      <div class="empty-state-desc">{{ error }}</div>
+      <button class="btn btn-primary" @click="fetchData">重试</button>
+    </div>
+
+    <template v-else>
+      <!-- 统计卡片 -->
+      <div class="stats-row">
+        <div class="stat-card glass-card" v-for="stat in stats" :key="stat.label">
+          <div class="stat-card-icon" :class="stat.iconClass">
+            <component :is="stat.icon" style="width:24px;height:24px;" />
+          </div>
+          <div>
+            <div class="stat-card-value">{{ stat.value }}</div>
+            <div class="stat-card-label">{{ stat.label }}</div>
           </div>
         </div>
       </div>
-    </StateWrapper>
 
-    <!-- Main CTA + Recent -->
-    <div class="grid gap-6 lg:grid-cols-2">
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-sm">
-        <h3 class="mb-4 font-semibold">快捷操作</h3>
-        <div class="space-y-2">
-          <div v-for="a in quickActions" :key="a.label"
-            class="flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-sm transition-colors hover:bg-[var(--color-muted)] cursor-pointer"
-            @click="$router.push(a.to)">
-            <component :is="a.icon" class="h-4 w-4 text-[var(--color-muted-foreground)]" />
-            <div>
-              <div class="font-medium">{{ a.label }}</div>
-              <div class="text-xs text-[var(--color-muted-foreground)]">{{ a.desc }}</div>
-            </div>
+      <!-- 快捷操作和最近报告 -->
+      <div class="dashboard-grid">
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <h3 class="panel-title">快捷操作</h3>
           </div>
-        </div>
-        <router-link to="/skills"
-          class="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-purple-600 text-sm font-semibold text-white shadow-sm transition-all hover:bg-purple-700 hover:shadow-md active:scale-[0.98]">
-          <Zap class="h-4 w-4" /> 立即生成报告
-        </router-link>
-      </div>
-
-      <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-sm">
-        <h3 class="mb-4 font-semibold">最近报告</h3>
-        <div v-if="recentReports.length" class="divide-y divide-[var(--color-border)]">
-          <div v-for="r in recentReports.slice(0, 5)" :key="r.id" class="flex items-center justify-between py-3 first:pt-0 last:pb-0">
-            <div class="min-w-0 flex-1">
-              <div class="truncate text-sm font-medium">{{ r.title }}</div>
-              <div class="mt-0.5 flex items-center gap-2 text-xs text-[var(--color-muted-foreground)]">
-                <span class="rounded bg-purple-50 px-1.5 py-0.5 font-medium text-purple-700 dark:bg-purple-950 dark:text-purple-300">{{ r.skill_id }}</span>
-                <span>{{ formatTime(r.created_at) }}</span>
+          <div class="quick-actions">
+            <a v-for="a in quickActions" :key="a.label" class="quick-action-item" @click.prevent="$router.push(a.to)">
+              <div class="quick-action-icon">
+                <component :is="a.icon" style="width:20px;height:20px;" />
               </div>
+              <div class="quick-action-text">
+                <div class="quick-action-title">{{ a.label }}</div>
+                <div class="quick-action-desc">{{ a.desc }}</div>
+              </div>
+              <div class="quick-action-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </div>
+            </a>
+          </div>
+          <router-link to="/skills" class="btn btn-primary btn-full">立即生成报告</router-link>
+        </div>
+
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <h3 class="panel-title">最近报告</h3>
+          </div>
+          <div v-if="recentReports.length" class="divide-y divide-[var(--border-color)]">
+            <div v-for="r in recentReports.slice(0, 5)" :key="r.id" class="flex items-center justify-between py-3 first:pt-0 last:pb-0">
+              <div class="min-w-0 flex-1">
+                <div class="truncate text-sm font-medium">{{ r.title }}</div>
+                <div class="mt-0.5 flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                  <span class="skill-badge">{{ r.skill_id }}</span>
+                  <span>{{ formatTime(r.created_at) }}</span>
+                </div>
+              </div>
+              <button class="btn btn-ghost text-sm" @click="$router.push(`/report/${r.id}`)">查看</button>
             </div>
-            <Button variant="ghost" size="sm" @click="$router.push(`/report/${r.id}`)">查看</Button>
+          </div>
+          <div v-else class="empty-state">
+            <div class="empty-state-icon">📄</div>
+            <div class="empty-state-title">暂无报告</div>
+            <div class="empty-state-desc">去 Skills 页面生成第一份报告吧</div>
+            <router-link to="/skills" class="btn btn-primary">浏览 Skills</router-link>
           </div>
         </div>
-        <EmptyState v-else description="暂无报告" />
       </div>
-    </div>
 
-    <!-- System Status -->
-    <div class="mt-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-sm">
-      <h3 class="mb-4 font-semibold">系统状态</h3>
-      <div class="flex flex-wrap gap-3">
-        <div v-for="s in systemStatus" :key="s.label" class="flex items-center gap-2 rounded-xl border border-[var(--color-border)] px-4 py-2.5 text-sm">
-          <div class="h-2 w-2 rounded-full" :class="s.ok ? 'bg-emerald-500' : 'bg-red-500'" />
-          <span>{{ s.label }}</span>
-          <span class="text-xs text-[var(--color-muted-foreground)]">{{ s.detail }}</span>
+      <!-- 系统状态 -->
+      <div class="panel glass-card" style="margin-top: var(--spacing-lg);">
+        <div class="panel-header">
+          <h3 class="panel-title">系统状态</h3>
+        </div>
+        <div class="system-status">
+          <div v-for="s in systemStatus" :key="s.label" class="status-item">
+            <span class="status-dot" :style="{ background: s.ok ? 'var(--brand-primary)' : '#ef4444' }" />
+            <span>{{ s.label }}</span>
+            <span style="color: var(--text-muted); font-size: 0.75rem;">{{ s.detail }}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </AppLayout>
 </template>
 
@@ -80,9 +106,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { Puzzle, FileText, Activity, Zap } from 'lucide-vue-next'
 import AppLayout from '@/layouts/AppLayout.vue'
-import Button from '@/components/ui/Button.vue'
-import StateWrapper from '@/components/shared/StateWrapper.vue'
-import EmptyState from '@/components/shared/EmptyState.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useSkillStore } from '@/stores/skill'
 import { reportApi, type ReportItem } from '@/api/report'
@@ -103,10 +126,10 @@ const greeting = computed(() => {
 })
 
 const stats = computed(() => [
-  { label: 'Skills', value: skillStore.skills.length, icon: Puzzle, bg: 'bg-purple-100 dark:bg-purple-900/40', color: 'text-purple-600 dark:text-purple-400' },
-  { label: '报告', value: recentReports.value.length, icon: FileText, bg: 'bg-emerald-100 dark:bg-emerald-900/40', color: 'text-emerald-600 dark:text-emerald-400' },
-  { label: '状态', value: 'Active', icon: Activity, bg: 'bg-blue-100 dark:bg-blue-900/40', color: 'text-blue-600 dark:text-blue-400' },
-  { label: 'API', value: 'v1.0', icon: Zap, bg: 'bg-amber-100 dark:bg-amber-900/40', color: 'text-amber-600 dark:text-amber-400' },
+  { label: 'Skills', value: skillStore.skills.length, icon: Puzzle, iconClass: 'purple' },
+  { label: '报告', value: recentReports.value.length, icon: FileText, iconClass: 'green' },
+  { label: '状态', value: 'Active', icon: Activity, iconClass: 'blue' },
+  { label: 'API', value: 'v1.0', icon: Zap, iconClass: 'amber' },
 ])
 
 const systemStatus = computed(() => [
