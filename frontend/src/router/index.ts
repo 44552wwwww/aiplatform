@@ -29,13 +29,13 @@ const router = createRouter({
     {
       path: '/skills',
       name: 'Skills',
-      component: () => import('@/pages/HomePage.vue'),
+      component: () => import('@/pages/SkillsPage.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/skill/:skillId',
       name: 'Skill',
-      component: () => import('@/pages/SkillPage.vue'),
+      component: () => import('@/pages/SkillDetailPage.vue'),
       meta: { requiresAuth: true },
     },
     {

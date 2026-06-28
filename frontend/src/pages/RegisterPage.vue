@@ -132,7 +132,7 @@ async function handleRegister() {
   loading.value = true
   try {
     await auth.register(form.username.trim(), form.password)
-    router.push('/skills')
+    router.push('/dashboard')
   } catch (e: unknown) {
     error.value = (e as Error).message || '注册失败，请检查网络连接'
   } finally {
