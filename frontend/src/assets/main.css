@@ -1,25 +1,25 @@
 @import 'tailwindcss';
 
-/* ── Design Tokens ──────────────────────────────────── */
+/* ── Design System ──────────────────────────────────── */
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #0a0a0f;
+  --color-background: #fafafa;
+  --color-foreground: #0f0f12;
   --color-primary: #7c3aed;
   --color-primary-foreground: #ffffff;
   --color-secondary: #f4f4f5;
   --color-secondary-foreground: #18181b;
-  --color-muted: #f4f4f5;
+  --color-muted: #f5f5f5;
   --color-muted-foreground: #71717a;
-  --color-accent: #f4f4f5;
+  --color-accent: #f5f5f5;
   --color-accent-foreground: #18181b;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-border: #e4e4e7;
+  --color-border: #e5e5e7;
   --color-ring: #a78bfa;
   --color-card: #ffffff;
-  --color-card-foreground: #0a0a0f;
-  --radius: 0.625rem;
-  --font-sans: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --color-card-foreground: #0f0f12;
+  --radius: 0.75rem;
+  --font-sans: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -31,17 +31,17 @@
   --color-foreground: #fafafa;
   --color-primary: #a78bfa;
   --color-primary-foreground: #18181b;
-  --color-secondary: #27272a;
+  --color-secondary: #1f1f24;
   --color-secondary-foreground: #fafafa;
-  --color-muted: #27272a;
+  --color-muted: #18181b;
   --color-muted-foreground: #a1a1aa;
-  --color-accent: #27272a;
+  --color-accent: #1f1f24;
   --color-accent-foreground: #fafafa;
   --color-destructive: #7f1d1d;
   --color-destructive-foreground: #fca5a5;
-  --color-border: #3f3f46;
+  --color-border: #2a2a30;
   --color-ring: #7c3aed;
-  --color-card: #171717;
+  --color-card: #131318;
   --color-card-foreground: #fafafa;
 }
 
@@ -59,8 +59,14 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 #app {
   min-height: 100vh;
+}
+
+/* ── Smooth transitions ─────────────────────────────── */
+a, button, input, select, textarea {
+  transition: all 180ms ease;
 }

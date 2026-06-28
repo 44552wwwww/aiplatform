@@ -1,26 +1,29 @@
 <template>
   <section id="faq" class="px-4 py-24">
-    <div class="mx-auto max-w-3xl">
+    <div class="mx-auto max-w-2xl">
       <div class="mb-12 text-center">
         <h2 class="text-3xl font-bold tracking-tight">常见问题</h2>
       </div>
 
       <div class="space-y-3">
         <div
-          v-for="(item, i) in faqs"
-          :key="i"
-          class="rounded-lg border border-[var(--color-border)]"
+          v-for="(item, i) in faqs" :key="i"
+          class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-sm transition-all duration-200 hover:shadow-md"
         >
           <button
-            class="flex w-full items-center justify-between px-5 py-4 text-left font-medium transition-colors hover:bg-[var(--color-muted)]/50"
+            class="flex w-full items-center justify-between px-6 py-5 text-left font-medium transition-colors"
             @click="toggle(i)"
           >
-            {{ item.q }}
+            <span class="pr-4">{{ item.q }}</span>
             <ChevronDown
-              :class="['h-5 w-5 text-[var(--color-muted-foreground)] transition-transform', open === i && 'rotate-180']"
+              class="h-5 w-5 shrink-0 text-[var(--color-muted-foreground)] transition-transform duration-200"
+              :class="open === i && 'rotate-180'"
             />
           </button>
-          <div v-if="open === i" class="border-t border-[var(--color-border)] px-5 py-4 text-sm text-[var(--color-muted-foreground)] leading-relaxed">
+          <div
+            v-if="open === i"
+            class="border-t border-[var(--color-border)] px-6 pb-5 pt-4 text-sm text-[var(--color-muted-foreground)] leading-relaxed"
+          >
             {{ item.a }}
           </div>
         </div>

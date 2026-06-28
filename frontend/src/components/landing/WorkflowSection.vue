@@ -1,22 +1,22 @@
 <template>
-  <section class="bg-[var(--color-muted)]/50 px-4 py-24">
-    <div class="mx-auto max-w-4xl">
+  <section class="bg-[var(--color-muted)]/40 px-4 py-24">
+    <div class="mx-auto max-w-3xl">
       <div class="mb-16 text-center">
         <h2 class="text-3xl font-bold tracking-tight">三步生成报告</h2>
         <p class="mt-3 text-[var(--color-muted-foreground)]">从选择到生成，几分钟完成</p>
       </div>
 
-      <div class="space-y-8">
-        <div v-for="(step, i) in steps" :key="i" class="flex gap-6">
-          <div class="flex flex-col items-center">
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-600 text-sm font-bold text-white shadow-lg shadow-purple-500/25">
-              {{ i + 1 }}
-            </div>
-            <div v-if="i < steps.length - 1" class="mt-2 h-full w-px bg-[var(--color-border)]" />
+      <div class="relative space-y-0">
+        <!-- Vertical line -->
+        <div class="absolute left-5 top-2 bottom-2 w-px bg-[var(--color-border)]" />
+
+        <div v-for="(step, i) in steps" :key="i" class="relative flex gap-6 pb-12 last:pb-0">
+          <div class="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-600 text-sm font-bold text-white shadow-lg shadow-purple-500/25">
+            {{ i + 1 }}
           </div>
-          <div class="pb-8">
+          <div>
             <h3 class="mb-2 font-semibold text-lg">{{ step.title }}</h3>
-            <p class="text-sm text-[var(--color-muted-foreground)] leading-relaxed">{{ step.desc }}</p>
+            <p class="text-sm text-[var(--color-muted-foreground)] leading-relaxed max-w-lg">{{ step.desc }}</p>
           </div>
         </div>
       </div>

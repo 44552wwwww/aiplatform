@@ -37,6 +37,7 @@ declare module 'vue' {
     LoadingSpinner: typeof import('./src/components/shared/LoadingSpinner.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SignatureFooter: typeof import('./src/components/shared/SignatureFooter.vue')['default']
     SkillCard: typeof import('./src/components/shared/SkillCard.vue')['default']
     StateWrapper: typeof import('./src/components/shared/StateWrapper.vue')['default']
     ThemeToggle: typeof import('./src/components/shared/ThemeToggle.vue')['default']
