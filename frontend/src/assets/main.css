@@ -1,3 +1,51 @@
+@import 'tailwindcss';
+
+/* ── Design Tokens ──────────────────────────────────── */
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0f;
+  --color-primary: #7c3aed;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #18181b;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #18181b;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e4e4e7;
+  --color-ring: #a78bfa;
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0f;
+  --radius: 0.625rem;
+  --font-sans: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Dark Mode ──────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-background: #0a0a0f;
+  --color-foreground: #fafafa;
+  --color-primary: #a78bfa;
+  --color-primary-foreground: #18181b;
+  --color-secondary: #27272a;
+  --color-secondary-foreground: #fafafa;
+  --color-muted: #27272a;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #27272a;
+  --color-accent-foreground: #fafafa;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #fca5a5;
+  --color-border: #3f3f46;
+  --color-ring: #7c3aed;
+  --color-card: #171717;
+  --color-card-foreground: #fafafa;
+}
+
+/* ── Base ───────────────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
@@ -5,35 +53,14 @@
 }
 
 body {
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
-  background: #f5f7fa;
-  color: #303133;
+  font-family: var(--font-sans);
+  background: var(--color-background);
+  color: var(--color-foreground);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
   min-height: 100vh;
-}
-
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px;
-}
-
-.page-header {
-  margin-bottom: 24px;
-}
-
-.page-header h1 {
-  font-size: 1.6em;
-  font-weight: 600;
-  color: #1a1a2e;
-}
-
-/* 响应式 */
-@media (max-width: 768px) {
-  .page-container {
-    padding: 16px 12px;
-  }
 }

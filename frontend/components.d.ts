@@ -12,6 +12,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    Button: typeof import('./src/components/ui/Button.vue')['default']
+    Card: typeof import('./src/components/ui/Card.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
@@ -25,10 +27,16 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    EmptyState: typeof import('./src/components/shared/EmptyState.vue')['default']
+    ErrorAlert: typeof import('./src/components/shared/ErrorAlert.vue')['default']
     ErrorDisplay: typeof import('./src/components/ErrorDisplay.vue')['default']
+    Input: typeof import('./src/components/ui/Input.vue')['default']
     LoadingOverlay: typeof import('./src/components/LoadingOverlay.vue')['default']
+    LoadingSpinner: typeof import('./src/components/shared/LoadingSpinner.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    StateWrapper: typeof import('./src/components/StateWrapper.vue')['default']
+    StateWrapper: typeof import('./src/components/shared/StateWrapper.vue')['default']
+    ThemeToggle: typeof import('./src/components/shared/ThemeToggle.vue')['default']
+    ToastProvider: typeof import('./src/components/ui/ToastProvider.vue')['default']
   }
 }
