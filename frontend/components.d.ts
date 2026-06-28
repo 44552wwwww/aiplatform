@@ -26,8 +26,6 @@ declare module 'vue' {
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    ElTable: typeof import('element-plus/es')['ElTable']
-    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     EmptyState: typeof import('./src/components/shared/EmptyState.vue')['default']
     ErrorAlert: typeof import('./src/components/shared/ErrorAlert.vue')['default']
     ErrorDisplay: typeof import('./src/components/ErrorDisplay.vue')['default']
