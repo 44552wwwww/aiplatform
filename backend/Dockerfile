@@ -13,4 +13,8 @@ COPY backend/ .
 # /app/app/registry/ = / + "skills" = /skills)
 COPY skills/ /skills/
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Entrypoint: run DB migration then start server
+COPY backend/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
