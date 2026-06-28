@@ -1,13 +1,13 @@
 <template>
   <div class="flex min-h-screen">
-    <!-- Sidebar -->
-    <aside class="fixed inset-y-0 left-0 z-40 flex w-60 flex-col border-r border-[var(--color-border)] bg-[var(--color-card)]">
+    <!-- Sidebar: flex child, fixed width, not position:fixed -->
+    <aside class="flex w-60 flex-shrink-0 flex-col border-r border-[var(--color-border)] bg-[var(--color-card)]">
       <div class="flex h-14 items-center gap-2.5 border-b border-[var(--color-border)] px-5">
         <Sparkles class="h-5 w-5 text-purple-600" />
         <span class="font-semibold tracking-tight">InsightForge</span>
       </div>
 
-      <nav class="flex-1 space-y-1 px-3 py-5">
+      <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-5">
         <router-link
           v-for="item in navItems" :key="item.to" :to="item.to"
           class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150"
@@ -37,16 +37,16 @@
       </div>
     </aside>
 
-    <!-- Main -->
-    <div class="ml-60 flex flex-1 flex-col">
-      <header class="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-lg px-6">
+    <!-- Main: flex 1, takes remaining width, never overlapped -->
+    <div class="flex min-w-0 flex-1 flex-col">
+      <header class="sticky top-0 z-30 flex h-14 flex-shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-lg px-6">
         <h2 class="text-sm font-medium text-[var(--color-muted-foreground)]">{{ pageTitle }}</h2>
         <div class="flex items-center gap-4">
           <ThemeToggle />
           <span class="text-sm text-[var(--color-muted-foreground)]">{{ username }}</span>
         </div>
       </header>
-      <main class="flex-1 p-8">
+      <main class="flex-1 overflow-auto p-8">
         <slot />
       </main>
     </div>
