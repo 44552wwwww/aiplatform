@@ -1,7 +1,7 @@
 <template>
-  <div class="flex min-h-screen">
-    <!-- Sidebar: flex child, fixed width, not position:fixed -->
-    <aside class="flex w-60 flex-shrink-0 flex-col border-r border-[var(--color-border)] bg-[var(--color-card)]">
+  <div class="grid min-h-screen" style="grid-template-columns: 240px 1fr;">
+    <!-- Sidebar -->
+    <aside class="flex flex-col border-r border-[var(--color-border)] bg-[var(--color-card)]" style="width:240px;">
       <div class="flex h-14 items-center gap-2.5 border-b border-[var(--color-border)] px-5">
         <Sparkles class="h-5 w-5 text-purple-600" />
         <span class="font-semibold tracking-tight">InsightForge</span>
@@ -37,9 +37,9 @@
       </div>
     </aside>
 
-    <!-- Main: flex 1, takes remaining width, never overlapped -->
-    <div class="flex min-w-0 flex-1 flex-col">
-      <header class="sticky top-0 z-30 flex h-14 flex-shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-lg px-6">
+    <!-- Main -->
+    <div class="flex flex-col" style="min-width:0;">
+      <header class="flex h-14 flex-shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-lg px-6">
         <h2 class="text-sm font-medium text-[var(--color-muted-foreground)]">{{ pageTitle }}</h2>
         <div class="flex items-center gap-4">
           <ThemeToggle />
