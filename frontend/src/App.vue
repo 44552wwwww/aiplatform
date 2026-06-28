@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <SignatureFooter />
     <ToastProvider />
   </div>
 </template>
@@ -8,6 +9,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import ToastProvider from '@/components/ui/ToastProvider.vue'
+import SignatureFooter from '@/components/shared/SignatureFooter.vue'
 import { useTheme } from '@/composables/useTheme'
 
 // 初始化主题
