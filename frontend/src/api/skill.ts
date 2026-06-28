@@ -14,7 +14,7 @@ export interface SkillManifest {
 }
 
 export interface SkillParameter {
-  type: 'number' | 'string' | 'select'
+  type: 'number' | 'string' | 'select' | 'textarea'
   label: string
   required?: boolean
   options?: string[]

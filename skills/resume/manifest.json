@@ -1,0 +1,25 @@
+{
+  "id": "resume",
+  "display_name": "简历洞察",
+  "version": "1.0.0",
+  "author": "InsightForge-AI",
+  "description": "AI 根据岗位和简历内容生成专业分析报告",
+  "icon": "file-text",
+  "category": "career",
+  "entry": "workflow.py",
+  "output": "html",
+  "parameters": {
+    "job": {
+      "type": "text",
+      "label": "求职岗位",
+      "required": true,
+      "placeholder": "例如：AI全栈开发工程师"
+    },
+    "resume": {
+      "type": "textarea",
+      "label": "简历内容",
+      "required": true,
+      "placeholder": "请粘贴完整简历内容……"
+    }
+  }
+}

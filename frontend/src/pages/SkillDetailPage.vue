@@ -43,6 +43,14 @@
               :placeholder="field.placeholder || `请输入${field.label}`"
               class="form-input"
             />
+            <textarea
+              v-else-if="field.type === 'textarea'"
+              v-model="params[key]"
+              :placeholder="field.placeholder || `请输入${field.label}`"
+              class="form-input"
+              rows="8"
+              style="resize: vertical; min-height: 120px;"
+            />
             <input
               v-else
               v-model="params[key]"
