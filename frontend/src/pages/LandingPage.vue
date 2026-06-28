@@ -11,13 +11,19 @@
           <a href="#features" class="text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors">功能</a>
           <a href="#faq" class="text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors">FAQ</a>
           <ThemeToggle />
-          <Button variant="ghost" size="sm" @click="$router.push('/login')">登录</Button>
-          <Button size="sm" @click="$router.push('/register')">注册</Button>
+          <template v-if="isLoggedIn">
+            <Button variant="ghost" size="sm" @click="$router.push('/dashboard')">Dashboard</Button>
+          </template>
+          <template v-else>
+            <Button variant="ghost" size="sm" @click="$router.push('/login')">登录</Button>
+            <Button size="sm" @click="$router.push('/register')">注册</Button>
+          </template>
         </nav>
         <!-- Mobile nav -->
         <div class="flex items-center gap-2 sm:hidden">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" @click="$router.push('/login')">登录</Button>
+          <Button v-if="isLoggedIn" variant="ghost" size="sm" @click="$router.push('/dashboard')">Dashboard</Button>
+          <Button v-else variant="ghost" size="sm" @click="$router.push('/login')">登录</Button>
         </div>
       </div>
     </header>
@@ -32,9 +38,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Sparkles } from 'lucide-vue-next'
 import Button from '@/components/ui/Button.vue'
 import ThemeToggle from '@/components/shared/ThemeToggle.vue'
+import { useAuthStore } from '@/stores/auth'
+
+const auth = useAuthStore()
+const isLoggedIn = computed(() => !!auth.token)
 import HeroSection from '@/components/landing/HeroSection.vue'
 import FeaturesSection from '@/components/landing/FeaturesSection.vue'
 import WorkflowSection from '@/components/landing/WorkflowSection.vue'

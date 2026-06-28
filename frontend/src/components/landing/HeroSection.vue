@@ -21,8 +21,8 @@
       </p>
 
       <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-        <Button size="lg" class="min-w-[160px] shadow-lg shadow-purple-500/25" @click="$router.push('/register')">
-          免费开始使用
+        <Button size="lg" class="min-w-[160px] shadow-lg shadow-purple-500/25" @click="$router.push(isLoggedIn ? '/dashboard' : '/register')">
+          {{ isLoggedIn ? '进入控制台' : '免费开始使用' }}
         </Button>
         <Button size="lg" variant="outline" class="min-w-[160px]" @click="scrollTo('#features')">
           了解更多
@@ -43,6 +43,11 @@
 <script setup lang="ts">
 import { Sparkles } from 'lucide-vue-next'
 import Button from '@/components/ui/Button.vue'
+import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
+
+const auth = useAuthStore()
+const isLoggedIn = computed(() => !!auth.token)
 
 const stats = [
   { value: '5+', label: 'AI 分析类型' },

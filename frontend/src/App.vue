@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <AppHeader />
-    <main>
-      <router-view />
-    </main>
+    <router-view />
     <ToastProvider />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import AppHeader from '@/components/AppHeader.vue'
 import ToastProvider from '@/components/ui/ToastProvider.vue'
 import { useTheme } from '@/composables/useTheme'
 
@@ -26,8 +22,8 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-main {
-  min-height: calc(100vh - 60px);
+<style>
+#app {
+  min-height: 100vh;
 }
 </style>
