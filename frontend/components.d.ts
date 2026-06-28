@@ -11,9 +11,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppFooter: typeof import('./src/components/layout/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
     Button: typeof import('./src/components/ui/Button.vue')['default']
     Card: typeof import('./src/components/ui/Card.vue')['default']
+    CTASection: typeof import('./src/components/landing/CTASection.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
@@ -30,6 +32,9 @@ declare module 'vue' {
     EmptyState: typeof import('./src/components/shared/EmptyState.vue')['default']
     ErrorAlert: typeof import('./src/components/shared/ErrorAlert.vue')['default']
     ErrorDisplay: typeof import('./src/components/ErrorDisplay.vue')['default']
+    FAQSection: typeof import('./src/components/landing/FAQSection.vue')['default']
+    FeaturesSection: typeof import('./src/components/landing/FeaturesSection.vue')['default']
+    HeroSection: typeof import('./src/components/landing/HeroSection.vue')['default']
     Input: typeof import('./src/components/ui/Input.vue')['default']
     LoadingOverlay: typeof import('./src/components/LoadingOverlay.vue')['default']
     LoadingSpinner: typeof import('./src/components/shared/LoadingSpinner.vue')['default']
@@ -38,5 +43,6 @@ declare module 'vue' {
     StateWrapper: typeof import('./src/components/shared/StateWrapper.vue')['default']
     ThemeToggle: typeof import('./src/components/shared/ThemeToggle.vue')['default']
     ToastProvider: typeof import('./src/components/ui/ToastProvider.vue')['default']
+    WorkflowSection: typeof import('./src/components/landing/WorkflowSection.vue')['default']
   }
 }

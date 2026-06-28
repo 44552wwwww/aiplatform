@@ -5,8 +5,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: () => import('@/pages/HomePage.vue'),
+      name: 'Landing',
+      component: () => import('@/pages/LandingPage.vue'),
     },
     {
       path: '/login',
@@ -19,6 +19,12 @@ const router = createRouter({
       name: 'Register',
       component: () => import('@/pages/RegisterPage.vue'),
       meta: { guest: true },
+    },
+    {
+      path: '/skills',
+      name: 'Skills',
+      component: () => import('@/pages/HomePage.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/skill/:skillId',
@@ -64,7 +70,7 @@ router.beforeEach((to, _from, next) => {
   if (to.meta.requiresAuth && !token) {
     next({ name: 'Login', query: { redirect: to.fullPath } })
   } else if (to.meta.guest && token) {
-    next({ name: 'Home' })
+    next({ name: 'Landing' })
   } else {
     next()
   }
